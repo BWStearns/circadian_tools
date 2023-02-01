@@ -18,4 +18,6 @@ name = "circadian_tools"
 path = "src/lib.rs"
 
 [dependencies]
+
+[dev-dependencies]
 float-cmp = "0.9.0"
