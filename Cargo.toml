@@ -9,6 +9,7 @@ readme = "README.md"
 license = "MIT"
 categories = ["date-and-time", "mathematics"]
 keywords = ["circadian", "cyclical", "average"]
+authors = ["Brian Stearns <brianw.stearns@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
