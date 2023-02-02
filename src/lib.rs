@@ -11,7 +11,6 @@ pub fn circadian_average(range: f64, data: Vec<f64>) -> (f64, f64) {
             (angle.cos(), angle.sin())
         })
         .collect();
-    println!("Positions: {:?}", positions);
     let avg_x_pos = positions.iter().map(|(x, _)| x).sum::<f64>() / num_samples as f64;
     let avg_y_pos = positions.iter().map(|(_, y)| y).sum::<f64>() / num_samples as f64;
     // Get the angle of the average position
@@ -19,7 +18,6 @@ pub fn circadian_average(range: f64, data: Vec<f64>) -> (f64, f64) {
     // Convert the angle to a value on the range
     let avg_value = (avg_angle / (2.0 * std::f64::consts::PI)) * range;
     // Get the confidence, which is the distance of the average from the origin
-    println!("Average position: {:?}", (avg_x_pos, avg_y_pos));
     let confidence = (avg_x_pos.powi(2) + avg_y_pos.powi(2)).sqrt() as f64;
     (avg_value, confidence)
 }
