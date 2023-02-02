@@ -1,0 +1,39 @@
+name: Circadian Tools Build Test
+run-name: ${{ github.actor }} is building and testing Circadian Tools 🚀
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, closed ]
+    paths-ignore:
+      - "README.md"
+      - "terraform/**"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Cache dependencies
+      id: cache-dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: Install stable toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+    - name: Run cargo test
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
