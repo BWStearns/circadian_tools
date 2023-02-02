@@ -8,6 +8,21 @@ One issue that can arise is averaging. Imagine a nightly data delivery. You want
 
 Additionally, we get a confidence measurement, which is the distance of the average point from the origin. A distance of 1 means that all the points are the same. A distance of 0 means that the points are equally distributed, so there's really no meaningful average. This can be useful if you want to know how predictive your average might be in the future. A use case here would be dynamically adjusting an alert threshold.
 
+```rust
+use chrono::NaiveTime;
+use circadian_tools;
+
+fn main() {
+    let data = vec![
+        NaiveTime::from_hms_opt(1, 0, 0).unwrap(),
+        NaiveTime::from_hms_opt(23, 0, 0).unwrap(),
+    ];
+    let avg_time = circadian_tools::avg_time_of_day(data);
+    println!("Average of 1100 and 0100 is {}", avg_time);
+    // prints "Average of 1100 and 0100 is 0000"
+}
+```
+
 ## Let me know if you have suggestions!
 
 This is a small library, starting with averaging, and is a work in progress. I will be adding more tools as I go. If you have any suggestions, please let me know.
