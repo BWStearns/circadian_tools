@@ -1,5 +1,5 @@
 // This crate provides a function for getting circadian averages.
-use chrono::{self, Timelike, NaiveTime};
+use chrono::{self, NaiveTime, Timelike};
 
 pub fn circadian_average(range: f64, data: Vec<f64>) -> (f64, f64) {
     let num_samples = data.len();
@@ -28,8 +28,7 @@ pub fn avg_time_of_day(data: Vec<impl Timelike>) -> NaiveTime {
         .map(|x| x.num_seconds_from_midnight() as f64)
         .collect();
     let avg_time = circadian_average(86400.0, times_as_secs).0;
-    NaiveTime::from_num_seconds_from_midnight_opt(avg_time as u32, 0)
-        .unwrap()
+    NaiveTime::from_num_seconds_from_midnight_opt(avg_time as u32, 0).unwrap()
 }
 
 #[cfg(test)]
