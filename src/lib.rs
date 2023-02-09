@@ -82,6 +82,15 @@ mod tests {
         assert!(approx_eq!(f64, avg, 1.0, epsilon = 0.0001));
         assert!(approx_eq!(f64, confidence, 0.0, epsilon = 0.0001));
     }
+
+    #[test]
+    fn test_circadian_average_slice() {
+        let data = vec![42.0, 0.0, 2.0, 420.0] as Vec<f64>;
+        let dataslice = &data[1..3];
+        let (avg, confidence) = circadian_average(4.0, dataslice);
+        assert!(approx_eq!(f64, avg, 1.0, epsilon = 0.0001));
+        assert!(approx_eq!(f64, confidence, 0.0, epsilon = 0.0001));
+    }
 }
 
 #[cfg(test)]
