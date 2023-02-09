@@ -21,7 +21,7 @@ name = "circadian_tools"
 path = "src/lib.rs"
 
 [dependencies]
-chrono = "0.4.23"
+chrono = { version = "0.4.23", optional = true }
 num-traits = { version = "0.2" }
 
 [dev-dependencies]
