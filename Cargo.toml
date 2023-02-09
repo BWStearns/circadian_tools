@@ -20,8 +20,11 @@ exclude = [
 name = "circadian_tools"
 path = "src/lib.rs"
 
+[features]
+default = ["chrono"]
+
 [dependencies]
-chrono = "0.4.23"
+chrono = { version = "0.4.23", optional = true }
 num-traits = { version = "0.2" }
 
 [dev-dependencies]
