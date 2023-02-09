@@ -28,7 +28,7 @@ where
     // Get the angle of the average position
     let avg_angle = avg_y_pos.atan2(avg_x_pos);
     // Convert the angle to a value on the range
-    let avg_value = (avg_angle / (2.0 * std::f64::consts::PI)) * range;
+    let avg_value = (avg_angle / TAU) * range;
     // Get the confidence, which is the distance of the average from the origin
     let confidence = (avg_x_pos.powi(2) + avg_y_pos.powi(2)).sqrt() as f64;
     (avg_value, confidence)
