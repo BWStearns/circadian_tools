@@ -1,18 +1,28 @@
 // This crate provides a function for getting circadian averages.
 use chrono::{self, NaiveTime, Timelike};
 
-pub fn circadian_average(range: f64, data: Vec<f64>) -> (f64, f64) {
-    let num_samples = data.len();
-    // Get X, Y position of each data point on a circle with a perimeter of range
-    let positions: Vec<(f64, f64)> = data
-        .iter()
-        .map(|x| {
-            let angle = (x / range) * 2.0 * std::f64::consts::PI;
-            (angle.cos(), angle.sin())
-        })
-        .collect();
-    let avg_x_pos = positions.iter().map(|(x, _)| x).sum::<f64>() / num_samples as f64;
-    let avg_y_pos = positions.iter().map(|(_, y)| y).sum::<f64>() / num_samples as f64;
+pub fn circadian_average<I>(range: f64, data: impl IntoIterator<IntoIter = I>) -> (f64, f64)
+where
+    I: ExactSizeIterator<Item = f64>,
+{
+    let data = data.into_iter();
+
+    let num_samples = data.len() as f64;
+
+    let mut x_pos_sum = 0.0;
+    let mut y_pos_sum = 0.0;
+
+    for x in data {
+        // Get X, Y position of each data point on a circle with a perimeter of range
+        let angle = (x / range) * 2.0 * std::f64::consts::PI;
+        let (s, c) = angle.sin_cos();
+        x_pos_sum += c;
+        y_pos_sum += s;
+    }
+
+    let avg_x_pos = x_pos_sum / num_samples;
+    let avg_y_pos = y_pos_sum / num_samples;
+
     // Get the angle of the average position
     let avg_angle = avg_y_pos.atan2(avg_x_pos);
     // Convert the angle to a value on the range
@@ -22,12 +32,16 @@ pub fn circadian_average(range: f64, data: Vec<f64>) -> (f64, f64) {
     (avg_value, confidence)
 }
 
-pub fn avg_time_of_day(data: Vec<impl Timelike>) -> NaiveTime {
-    let times_as_secs: Vec<f64> = data
-        .iter()
-        .map(|x| x.num_seconds_from_midnight() as f64)
-        .collect();
-    let avg_time = circadian_average(86400.0, times_as_secs).0;
+pub fn avg_time_of_day<I, T>(data: impl IntoIterator<IntoIter = I>) -> NaiveTime
+where
+    I: ExactSizeIterator<Item = T>,
+    T: Timelike,
+{
+    let data = data
+        .into_iter()
+        .map(|x| x.num_seconds_from_midnight() as f64);
+
+    let avg_time = circadian_average(86400.0, data).0;
     NaiveTime::from_num_seconds_from_midnight_opt(avg_time as u32, 0).unwrap()
 }
 
