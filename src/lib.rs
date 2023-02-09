@@ -1,3 +1,5 @@
+use std::f64::consts::TAU;
+
 // This crate provides a function for getting circadian averages.
 use chrono::{self, NaiveTime, Timelike};
 
@@ -14,7 +16,7 @@ where
 
     for x in data {
         // Get X, Y position of each data point on a circle with a perimeter of range
-        let angle = (x / range) * 2.0 * std::f64::consts::PI;
+        let angle = (x / range) * TAU;
         let (s, c) = angle.sin_cos();
         x_pos_sum += c;
         y_pos_sum += s;
