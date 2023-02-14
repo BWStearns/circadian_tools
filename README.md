@@ -13,7 +13,7 @@ use circadian_tools;
 
 fn main() {
     let data = vec![23.0, 1.0];
-    let (avg, conf) = circadian_tools::circadian_average(24.0, data);
+    let (avg, conf) = circadian_tools::circadian_average(24.0, data.into_iter());
     println!("Average of 23 and 1 on a 24 hour cycle is {}, with {} confidence", avg, conf);
     // prints "Average of 23 and 1 on a 24 hour cycle is 0.0000..., with 0.9659... confidence"
 }
@@ -30,7 +30,7 @@ fn main() {
         NaiveTime::from_hms_opt(1, 0, 0).unwrap(),
         NaiveTime::from_hms_opt(23, 0, 0).unwrap(),
     ];
-    let avg_time = circadian_tools::avg_time_of_day(data);
+    let avg_time = circadian_tools::avg_time_of_day(data.into_iter());
     println!("Average of 1100 and 0100 is {}", avg_time);
     // prints "Average of 1100 and 0100 is 0000"
 }
