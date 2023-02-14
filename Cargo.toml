@@ -1,6 +1,6 @@
 [package]
 name = "circadian_tools"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 description = "Tools for working with circadian data, or data that is cyclical like time of day."
 homepage = "https://github.com/BWStearns/circadian_tools"
