@@ -24,6 +24,7 @@ where
     let tau_over_range = tau / range;
 
     for x in data {
+        assert!(x >= F::zero(), "Input data must be positive");
         len += 1;
         // Get X, Y position of each data point on a circle with a perimeter of range
         let angle = x * tau_over_range;
@@ -53,6 +54,13 @@ mod tests {
     use super::*;
     use float_cmp::approx_eq;
     use std::f64::consts::FRAC_1_SQRT_2;
+
+    #[test]
+    #[should_panic]
+    fn negative_input_fails() {
+        let data = vec![-1.0];
+        let _ = circadian_average(4.0, data.into_iter());
+    }
 
     #[test]
     fn test_circadian_average_unanimous() {
