@@ -42,7 +42,6 @@ where
     let avg_value = avg_angle / tau_over_range;
     // Get the confidence, which is the distance of the average from the origin
     let confidence = (avg_x_pos.powi(2) + avg_y_pos.powi(2)).sqrt();
-    println!("Average: {avg}, Error: {confidence}, Avg Value: {avg_value}", avg = avg_angle, confidence = confidence, avg_value = avg_value);
     (avg_value, confidence)
 }
 
@@ -72,7 +71,6 @@ mod tests {
     fn test_circadian_average_split() {
         let data = vec![1.0, 2.0];
         let (avg, confidence) = circadian_average(4.0, data.into_iter());
-        println!("Average: {avg}, Error: {confidence}");
         assert_eq!(avg, 1.5);
         assert!(approx_eq!(f64, confidence, FRAC_1_SQRT_2, epsilon = 0.0001));
     }
@@ -93,18 +91,18 @@ mod tests {
         assert!(approx_eq!(f64, confidence, FRAC_1_SQRT_2, epsilon = 0.0001));
     }
 
-    // #[test]
-    // fn avg_count() {
-    //     const FACTOR: f64 = 607.0;
-    //     let data: Vec<f64> = vec![
-    //         514.0, 176.0, 64.0, 249.0, 415.0, 455.0, 221.0, 375.0, 477.0, 464.0, 421.0, 32.0, 40.0, 496.0, 534.0, 134.0,
-    //     ];
-    //     let inputs = data.into_iter().map(|x| x);
-    //     println!("inputs: {:?}", inputs);
-    //     let (avg, _) = circadian_average(
-    //         FACTOR,
-    //         inputs,
-    //     );
-    //     assert_eq!(avg, -108.24684679858052);
-    // }
+    #[test]
+    fn avg_count() {
+        const FACTOR: f64 = 607.0;
+        let data: Vec<f64> = vec![
+            514.0, 176.0, 64.0, 249.0, 415.0, 455.0, 221.0, 375.0, 477.0, 464.0, 421.0, 32.0, 40.0, 496.0, 534.0, 134.0,
+        ];
+        let inputs = data.into_iter().map(|x| x);
+        let (avg, confidence) = circadian_average(
+            FACTOR,
+            inputs,
+        );
+        assert_eq!(avg, 498.7531532014195);
+        assert_eq!(confidence, 0.23138448716890458)
+    }
 }
