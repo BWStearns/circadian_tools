@@ -1,7 +1,4 @@
-use std::{
-    f64::consts::TAU,
-    fmt::{Debug, Display},
-};
+use std::{f64::consts::TAU, fmt::Debug};
 
 use num_traits::Float;
 
@@ -12,7 +9,7 @@ pub use crate::chrono::avg_time_of_day;
 
 pub fn circadian_average<I, F>(range: F, data: I) -> (F, F)
 where
-    F: Float + Debug + Display,
+    F: Float + Debug,
     I: Iterator<Item = F>,
 {
     let mut len = 0;
