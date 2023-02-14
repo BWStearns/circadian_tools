@@ -36,12 +36,10 @@ where
     let avg_x_pos = x_pos_sum / F::from(len).unwrap();
     let avg_y_pos = y_pos_sum / F::from(len).unwrap();
     // Get the angle of the average position
-    let atan2 = avg_y_pos.atan2(avg_x_pos);
-    let avg_angle = if atan2 < F::zero() {
-        atan2 + tau
-    } else {
-        atan2
-    };
+    let mut avg_angle = avg_y_pos.atan2(avg_x_pos);
+    if avg_angle < F::zero() {
+        avg_angle = avg_angle + tau;
+    }
     // Convert the angle to a value on the range
     let avg_value = avg_angle / tau_over_range;
     // Get the confidence, which is the distance of the average from the origin
