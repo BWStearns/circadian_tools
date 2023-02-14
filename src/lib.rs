@@ -24,7 +24,7 @@ where
     let tau_over_range = tau / range;
 
     for x in data {
-        assert!(x >= F::zero(), "Input data must be positive");
+        debug_assert!(x >= F::zero(), "Input data must be positive");
         len += 1;
         // Get X, Y position of each data point on a circle with a perimeter of range
         let angle = x * tau_over_range;

@@ -52,7 +52,7 @@ dependencies = [
 
 [[package]]
 name = "circadian_tools"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "chrono",
  "float-cmp",
