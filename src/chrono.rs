@@ -6,8 +6,7 @@ where
     I: Iterator<Item = T>,
     T: Timelike,
 {
-    let data = data
-        .map(|x| x.num_seconds_from_midnight() as f64);
+    let data = data.map(|x| x.num_seconds_from_midnight() as f64);
 
     let avg_time = crate::circadian_average(86400.0, data).0;
     NaiveTime::from_num_seconds_from_midnight_opt(avg_time as u32, 0).unwrap()
