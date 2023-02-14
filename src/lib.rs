@@ -54,7 +54,7 @@ mod tests {
     use std::f64::consts::FRAC_1_SQRT_2;
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "Input data must be positive")]
     fn negative_input_fails() {
         let data = vec![-1.0];
         let _ = circadian_average(4.0, data.into_iter());
