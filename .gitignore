@@ -1,1 +1,4 @@
 /target
+/coverage
+default_*
+lcov.info
