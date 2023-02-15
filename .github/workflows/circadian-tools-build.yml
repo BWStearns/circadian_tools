@@ -16,8 +16,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache dependencies
@@ -35,7 +33,20 @@ jobs:
         profile: minimal
         toolchain: stable
         override: true
+    - name: "Install grcov"
+      uses: actions-rs/install@v0.1
+      name: Install grcov
+      with:
+        crate: grcov
+        version: 0.8.0
+        use-tool-cache: true
+    - name: grcov
+      run: grcov . -s . --binary-path ./target/debug/ -t lcov --branch -o lcov.info
     - name: Run cargo test
       uses: actions-rs/cargo@v1
       with:
         command: test
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./lcov.info
