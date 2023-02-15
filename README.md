@@ -1,4 +1,6 @@
-# Circadian Tools &emsp; [![Build Status]][actions] [![Latest Version]][crates.io]
+# Circadian Tools &emsp; [![Build Status]][actions] [![Latest Version]][crates.io] 
+
+<!-- [![Code Coverage[codecov]]] -->
 
 [Build Status]: https://github.com/BWStearns/circadian_tools/actions/workflows/circadian-tools-build.yml/badge.svg
 [actions]: https://github.com/BWStearns/circadian_tools/actions/workflows/circadian-tools-build.yml?query=branch%3Amain
