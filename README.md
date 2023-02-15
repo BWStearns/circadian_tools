@@ -1,13 +1,11 @@
-# Circadian Tools &emsp; [![Build Status]][actions] [![Latest Version]][crates.io][![Code Coverage][codecov]] 
-
-[![Code Coverage[codecov]]]
+# Circadian Tools &emsp; [![Build Status]][actions] [![Latest Version]][crates.io][![Code Coverage][codecov]]
 
 [Build Status]: https://github.com/BWStearns/circadian_tools/actions/workflows/circadian-tools-build.yml/badge.svg
 [actions]: https://github.com/BWStearns/circadian_tools/actions/workflows/circadian-tools-build.yml?query=branch%3Amain
 [Latest Version]: https://img.shields.io/crates/v/circadian_tools.svg
 [crates.io]: https://crates.io/crates/circadian\_tools
-[Code Coverage]: https://codecov.io/gh/BWStearns/circadian_tools/branch/main/graph/badge.svg
-[codecov]: https://codecov.io/gh/BWStearns/circadian_tools
+[Code Coverage]: https://codecov.io/github/BWStearns/circadian_tools/branch/main/graph/badge.svg?token=05CO300EVS
+[codecov]: https://codecov.io/github/BWStearns/circadian_tools
 
 Circadian data is data which is cyclical, like time of day, or day of week, etc. One could also imagine data which is cyclical in other ways, like the phases of the moon, seasons, or a sales cycle etc.
 
