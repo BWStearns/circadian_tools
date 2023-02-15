@@ -33,9 +33,8 @@ jobs:
         profile: minimal
         toolchain: stable
         override: true
-    - name: "Install grcov"
+    - name: Install grcov
       uses: actions-rs/install@v0.1
-      name: Install grcov
       with:
         crate: grcov
         version: 0.8.0
