@@ -1,6 +1,5 @@
-use std::{f64::consts::TAU, fmt::Debug};
-
 use num_traits::Float;
+use std::{f64::consts::TAU, fmt::Debug};
 
 #[cfg(feature = "chrono")]
 mod chrono;
