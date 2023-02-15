@@ -14,10 +14,10 @@ env:
 
 jobs:
   build:
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
     runs-on: ubuntu-latest
     steps:
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Cache dependencies
