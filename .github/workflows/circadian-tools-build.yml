@@ -44,8 +44,9 @@ jobs:
       with:
         command: test
       env:
-        RUSTFLAGS: '-Zinstrument-coverage'
-        RUSTDOCFLAGS: '-Zinstrument-coverage'
+        RUSTC_BOOTSTRAP: 1
+        RUSTFLAGS: '-instrument-coverage'
+        RUSTDOCFLAGS: '-instrument-coverage'
         LLVM_PROFILE_FILE: 'codecov-instrumentation-%p-%m.profraw'
     - name: grcov
       run: grcov . -s . --binary-path ./target/debug/ -t lcov --branch -o lcov.info
