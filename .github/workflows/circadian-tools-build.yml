@@ -8,6 +8,11 @@ on:
     paths-ignore:
       - "README.md"
       - "terraform/**"
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "README.md"
+      - "terraform/**"
 
 env:
   CARGO_TERM_COLOR: always
