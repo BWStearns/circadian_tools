@@ -39,12 +39,16 @@ jobs:
         crate: grcov
         version: 0.8.0
         use-tool-cache: true
-    - name: grcov
-      run: grcov . -s . --binary-path ./target/debug/ -t lcov --branch -o lcov.info
     - name: Run cargo test
       uses: actions-rs/cargo@v1
       with:
         command: test
+      env:
+        RUSTFLAGS: '-Zinstrument-coverage'
+        RUSTDOCFLAGS: '-Zinstrument-coverage'
+        LLVM_PROFILE_FILE: 'codecov-instrumentation-%p-%m.profraw'
+    - name: grcov
+      run: grcov . -s . --binary-path ./target/debug/ -t lcov --branch -o lcov.info
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
