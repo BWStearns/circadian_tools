@@ -7,7 +7,6 @@
 [Latest Version]: https://img.shields.io/crates/v/circadian_tools.svg
 [crates.io]: https://crates.io/crates/circadian\_tools
 
-
 Circadian data is data which is cyclical, like time of day, or day of week, etc. One could also imagine data which is cyclical in other ways, like the phases of the moon, seasons, or a sales cycle etc.
 
 ## Averages
