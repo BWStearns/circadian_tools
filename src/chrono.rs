@@ -12,13 +12,11 @@ where
     NaiveTime::from_num_seconds_from_midnight_opt(avg_time as u32, 0).unwrap()
 }
 
-pub fn avg_weekday(data: impl Iterator<Item = Weekday>) -> Weekday {
-    let data = data
-        .map(|x| x.num_days_from_sunday() as f64);
-
-    let (avg_day, confidence) = crate::circadian_average(7.0, data);
+pub fn avg_weekday(data: impl Iterator<Item = Weekday>) -> (Weekday, f64) {
+    let data = data.map(|x| x.num_days_from_monday() as f64);
+    let (avg_day, confidence) = crate::circadian_average(6.0, data);
     let avg_day = avg_day.round() as u32;
-    Weekday::from_u32(avg_day).unwrap()
+    (Weekday::from_u32(avg_day).unwrap(), confidence)
 }
 
 #[cfg(test)]
@@ -38,23 +36,29 @@ mod avg_time_tests {
 
     #[test]
     fn test_avg_day_of_week() {
-        let data = vec![
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-            Weekday::Fri,
-        ];
+        let data = vec![Weekday::Tue, Weekday::Tue];
         let avg_day = avg_weekday(data.into_iter());
-        assert_eq!(avg_day, Weekday::Fri);
+        assert_eq!(avg_day.0, Weekday::Tue);
+    }
+
+    #[test]
+    fn test_avg_day_of_week_2() {
+        let data = vec![Weekday::Tue, Weekday::Thu];
+        let avg_day = avg_weekday(data.into_iter());
+        assert_eq!(avg_day.0, Weekday::Wed);
+    }
+
+    #[test]
+    fn test_avg_day_of_week_3() {
+        let data = vec![Weekday::Tue, Weekday::Thu, Weekday::Fri];
+        let avg_day = avg_weekday(data.into_iter());
+        assert_eq!(avg_day.0, Weekday::Thu);
+    }
+
+    #[test]
+    fn test_avg_day_of_week_4() {
+        let data = vec![Weekday::Sun, Weekday::Tue];
+        let avg_day = avg_weekday(data.into_iter());
+        assert_eq!(avg_day.0, Weekday::Mon);
     }
 }
