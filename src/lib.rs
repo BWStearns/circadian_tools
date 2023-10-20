@@ -172,6 +172,17 @@ mod tests {
     }
 
     #[test]
+    fn test_with_many_reasonably_sized_numbers() {
+        // Make a vec of one million 1000s
+        let one_thousands: Vec<f32> = vec![1000.0; 1_000_000];
+        let two_thousands: Vec<f32> = vec![2000.0; 1_000_000];
+        let data = one_thousands.into_iter().chain(two_thousands.into_iter());
+        let (avg, confidence) = safe_circadian_average(4000.0, data.into_iter());
+        assert_eq!(avg, 1500_f32);
+        assert!(approx_eq!(f32, confidence, FRAC_1_SQRT_2 as f32, epsilon = 0.0001));
+    }
+
+    #[test]
     fn test_safe_circadian_with_big_numbers() {
         // This test is to make sure that the running average doesn't overflow with
         // large numbers.
@@ -183,6 +194,8 @@ mod tests {
     #[test]
     fn test_that_averaging_max_works() {
         let avg = f32::MAX + (f32::MAX-f32::MAX) / 1.0_f32;
-        assert!(approx_eq!(f32, avg, f32::MAX, epsilon = 0.0001));
+        let diff = avg - f32::MAX;
+        assert_eq!(diff, 0.0);
+        // assert!(approx_eq!(f32, avg, f32::MAX, epsilon = 0.0001));
     }
 }
